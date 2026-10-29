@@ -8,7 +8,7 @@ Built with **React (TypeScript + Tailwind CSS)** frontend and **Python (FastAPI)
 
 ## 1. Quick Start
 
-### Option A: Docker Compose (Recommended)
+### Option A: Docker Compose (Multi-Service)
 Run both the Python backend and React frontend with a single command:
 ```bash
 docker compose up --build
@@ -21,7 +21,15 @@ To run the unit tests inside Docker:
 docker compose --profile test run --rm test
 ```
 
-### Option B: Local Development
+### Option B: Single-Container Docker (Heroku / Cloud Run / Production)
+Build and run the full stack (React build served by FastAPI on a single port):
+```bash
+docker build -t wind-forecast-check .
+docker run -p 8000:8000 wind-forecast-check
+```
+Open http://localhost:8000 in your browser.
+
+### Option C: Local Development
 
 1. **Install Frontend Dependencies** (from repo root):
    ```bash
@@ -44,7 +52,27 @@ docker compose --profile test run --rm test
 
 ---
 
-## 2. Testing & Quality Assurance
+## 2. Cloud Deployment (Vercel & Heroku)
+
+### Vercel Deployment
+The repository includes a pre-configured `vercel.json`:
+1. Import the repository into [Vercel](https://vercel.com).
+2. Framework Preset: **Vite** (Build command: `npm run build`, Output directory: `apps/wind-forecast-check/dist`).
+3. Deploy! The frontend automatically functions in zero-config standalone mode with live Elexon BMRS streaming, or connects to your deployed Python backend if `VITE_API_URL` is set.
+
+### Heroku Deployment
+The repository includes both `Procfile` and root `Dockerfile` for Heroku:
+- **Heroku Container**:
+  ```bash
+  heroku container:login
+  heroku container:push web -a <your-app-name>
+  heroku container:release web -a <your-app-name>
+  ```
+- **Heroku Git / Buildpack**: Uses `Procfile` (`uvicorn backend.main:app --host 0.0.0.0 --port $PORT`).
+
+---
+
+## 3. Testing & Quality Assurance
 
 Dual test suites verify deadline picking, deduplication, and accuracy metrics:
 
@@ -70,7 +98,7 @@ Dual test suites verify deadline picking, deduplication, and accuracy metrics:
 
 ---
 
-## 3. Repository & Directory Structure
+## 4. Repository & Directory Structure
 
 ```
 .
@@ -96,13 +124,16 @@ Dual test suites verify deadline picking, deduplication, and accuracy metrics:
 ├── packages/
 │   └── components/          # Shared UI component library (Radix UI / Tailwind)
 ├── docker-compose.yml       # Multi-service composition (backend + frontend + tests)
+├── Dockerfile               # Production multi-stage container (builds frontend, serves via FastAPI)
+├── Procfile                 # Heroku deployment process configuration
+├── vercel.json              # Vercel deployment configuration
 ├── .env.example             # Optional environment variable template
 └── README.md                # Documentation and submission details
 ```
 
 ---
 
-## 4. Problem & Business Context
+## 5. Problem & Business Context
 
 In the UK wholesale electricity market, day-ahead power procurement occurs one day before physical delivery. Energy utilities must forecast renewable wind generation to accurately calculate how much thermal/peaking power to procure. 
 
@@ -127,7 +158,7 @@ Data is sourced directly from **Elexon BMRS**:
 
 ---
 
-## 5. Quantitative Findings (January 2026)
+## 6. Quantitative Findings (January 2026)
 
 | Deadline | MAE (MW) | Bias (MW) | P90 Error (MW) | nMAE (%) | Avg Lead Time | Valid Pairs |
 |---|---|---|---|---|---|---|
@@ -140,6 +171,6 @@ Data is sourced directly from **Elexon BMRS**:
 
 ---
 
-## 6. AI Tools Disclosure
+## 7. AI Tools Disclosure
 
 As permitted and encouraged by the assignment guidelines, AI development tools (including Claude and Gemini via Antigravity) were utilized to assist with codebase architecture, data modeling, testing, and UI component integration. All analytical logic, Elexon API integrations, and unit tests have been independently validated.

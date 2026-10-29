@@ -25,7 +25,8 @@ export default function App() {
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <DeadlinePicker value={deadline} onChange={setDeadline} />
-            <a href="/downloads/wind-forecast-check-2026-10-29.zip" download className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"><Download className="h-4 w-4" />Project .zip</a>
+            <a href="/report/Wind_Report_January_2026.pdf" download className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"><Download className="h-4 w-4" />Executive PDF</a>
+            <a href="https://github.com/KoustavaRamesha/assignment" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground">GitHub</a>
           </div>
         </div>
       </header>

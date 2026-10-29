@@ -51,7 +51,7 @@ export default function ForecastPage({ deadline }: { deadline: string }) {
                 </LineChart>
               </ResponsiveContainer>
             </div>
-            <p className="text-xs text-muted-foreground mt-2">Elexon publishes wind forecasts hourly (dots), so the forecast line joins hourly points; :30 half-hours have no forecast and count as missing pairs. Energy = sum of half-hour MW × 0.5.</p>
+            <p className="text-xs text-muted-foreground mt-2">Elexon publishes wind forecasts hourly (dots), so the forecast line joins hourly points; :30 half-hours have no forecast and count as missing pairs. Energy calculation: hourly forecast MW × 1.0 h, half-hourly actual MW × 0.5 h.</p>
           </Card>
         </>
       )}
