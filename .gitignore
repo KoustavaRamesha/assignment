@@ -1,26 +1,13 @@
-# Dependencies
-node_modules/
-
-# Build output
-dist/
+node_modules
+**/node_modules
+**/dist
+**/.env.local
 *.tsbuildinfo
-.tscache/
-
-# Environment / secrets
-.env
-.env.*
-
-# Generated
-.zite/
-zite.schema.json*
-
-# Logs
-install.log
-*.log
-
-# Editor / OS
-.DS_Store
-Thumbs.db
-
-# Local tooling
-.freebuff/
+.zite
+**/.zite
+__pycache__
+**/__pycache__
+*.pyc
+.pytest_cache
+**/dist-ssr
+*.local

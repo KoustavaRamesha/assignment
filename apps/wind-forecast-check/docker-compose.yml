@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: apps/wind-forecast-check/Dockerfile
+    ports:
+      - "8080:80"
+  test:
+    image: node:20-alpine
+    working_dir: /repo/apps/wind-forecast-check
+    volumes: ["../..:/repo"]
+    command: sh -c "cd /repo && npm install --ignore-scripts --no-audit --no-fund && cd apps/wind-forecast-check && npx vitest run"
+    profiles: ["test"]
