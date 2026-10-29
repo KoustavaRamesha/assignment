@@ -49,3 +49,4 @@ The client is an energy utility in the UK responsible for buying required power 
    - Update `docker-compose.yml` to support frontend and Python backend.
    - Verify tests pass.
    - Initialize git and push to GitHub repository.
+
