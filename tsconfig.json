@@ -7,10 +7,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": [
-    ".zite"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
